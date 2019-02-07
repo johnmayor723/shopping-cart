@@ -9,9 +9,11 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var session = require('express-session');
 var flash = require('connect-flash');
-var MongoStore = require('connect-mongo')(session);
+const validator = require('express-validator')
 
 var app = express();
+
+var MongoStore = require('connect-mongo')(session);
 
 var routes = require('./routes/index');
 var userRoutes = require('./routes/user');
@@ -29,6 +31,7 @@ app.set('view engine', '.hbs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(validator())
 app.use(cookieParser());
 app.use(session({
     secret: 'mysupersecret',
